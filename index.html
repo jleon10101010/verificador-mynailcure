@@ -4,70 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Nail Cure - Verificación</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); max-width: 350px; width: 90%; text-align: center; border-top: 6px solid #0097a7; }
-        .logo { max-width: 180px; margin-bottom: 20px; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 14px; outline: none; }
-        input:focus { border-color: #0097a7; }
-        button { background-color: #ffb74d; color: black; border: none; padding: 15px; width: 100%; border-radius: 30px; cursor: pointer; font-weight: bold; margin-top: 10px; font-size: 14px; transition: 0.3s; }
-        button:hover { background-color: #ffa726; }
-        #res { margin-top: 20px; padding: 15px; border-radius: 10px; font-weight: bold; display: none; font-size: 13px; line-height: 1.4; }
-        .footer-icons { margin-top: 20px; font-size: 18px; opacity: 0.5; letter-spacing: 5px; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #f4f7f6; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); max-width: 350px; width: 90%; text-align: center; border-top: 6px solid #0097a7; }
+        .brand-name { font-size: 28px; color: #333; font-weight: 700; margin-bottom: 5px; }
+        .brand-sub { font-size: 11px; color: #0097a7; font-weight: 700; margin-bottom: 30px; letter-spacing: 2px; text-transform: uppercase; }
+        .instruction { font-size: 11px; color: #555; font-weight: 700; margin-bottom: 25px; text-transform: uppercase; line-height: 1.5; }
+        .input-group { margin-bottom: 15px; text-align: left; }
+        label { display: block; font-size: 10px; color: #999; margin-bottom: 5px; font-weight: 700; text-transform: uppercase; }
+        input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 14px; font-family: inherit; outline: none; }
+        .btn-verify { background-color: #ffb74d; color: #000; border: none; padding: 16px; width: 100%; border-radius: 30px; cursor: pointer; font-weight: 700; margin-top: 15px; font-size: 14px; text-transform: uppercase; }
+        #res { margin-top: 25px; padding: 15px; border-radius: 12px; font-weight: 700; font-size: 13px; display: none; }
+        .success { background-color: #e8f5e9; color: #2e7d32; border: 1px solid #2e7d32; }
+        .error { background-color: #ffebee; color: #c62828; border: 1px solid #c62828; }
+        .footer-icons { margin-top: 35px; font-size: 22px; opacity: 0.7; }
     </style>
 </head>
 <body>
     <div class="card">
-        <img src="https://mynailcure.com/wp-content/uploads/2023/10/Logo-ok.jpg" class="logo" alt="My Nail Cure">
-        <div style="font-size: 11px; color: #0097a7; font-weight: bold; margin-bottom: 10px; text-transform: uppercase;">Introduce la información de la tapa</div>
-        
-        <input type="text" id="mfg" placeholder="MFG (dd/mm/aaaa)">
-        <input type="text" id="exp" placeholder="EXP (dd/mm/aaaa)">
-        <input type="text" id="batch" placeholder="BATCH (12345678-12)">
-        
-        <button onclick="verificar()">VERIFICAR ORIGINALIDAD</button>
-        
+        <div class="brand-name">My Nail Cure</div>
+        <div class="brand-sub">Authenticity</div>
+        <div class="instruction">Introduce la información ubicada en la tapa superior</div>
+        <div class="input-group">
+            <label>MFG (Fabricación):</label>
+            <input type="text" id="mfg" placeholder="dd/mm/aaaa">
+        </div>
+        <div class="input-group">
+            <label>EXP (Expiración):</label>
+            <input type="text" id="exp" placeholder="dd/mm/aaaa">
+        </div>
+        <div class="input-group">
+            <label>BATCH (Lote):</label>
+            <input type="text" id="batch" placeholder="12345678-12">
+        </div>
+        <button class="btn-verify" id="btn" onclick="verificar()">VERIFICAR ORIGINALIDAD</button>
         <div id="res"></div>
-        
         <div class="footer-icons">♻️ 🐾 🌱 🇪🇺</div>
     </div>
-
     <script>
         async function verificar() {
-            const btn = document.querySelector('button');
+            const btn = document.getElementById('btn');
             const res = document.getElementById('res');
-            const url = "https://script.google.com/macros/s/AKfycbxMTeHvv4y3o_Pg8bdqg_ozlAM_N5P9JRHc0OFfe1VqHlsd7jYo3Fh0WiXh-HZfOjrg/exec"; 
-            
-            const mfg = document.getElementById('mfg').value.trim();
-            const exp = document.getElementById('exp').value.trim();
-            const batch = document.getElementById('batch').value.trim();
-
-            if(!mfg || !exp || !batch) {
-                alert("Por favor completa todos los campos");
-                return;
-            }
-
-            btn.innerText = "BUSCANDO...";
-            btn.disabled = true;
-            res.style.display = "none";
-
+            const url = "https://script.google.com/macros/s/AKfycbxMTeHvv4y3o_Pg8bdqg_ozlAM_N5P9JRHc0OFfe1VqHlsd7jYo3Fh0WiXh-HZfOjrg/exec";
+            btn.disabled = true; btn.innerText = "BUSCANDO..."; res.style.display = "none";
             try {
-                const response = await fetch(`${url}?mfg=${encodeURIComponent(mfg)}&exp=${encodeURIComponent(exp)}&batch=${encodeURIComponent(batch)}`);
+                const response = await fetch(`${url}?mfg=${document.getElementById('mfg').value}&exp=${document.getElementById('exp').value}&batch=${document.getElementById('batch').value}`);
                 const data = await response.json();
-                
-                res.style.display = "block";
-                res.style.backgroundColor = data.status === "success" ? "#e8f5e9" : "#ffebee";
-                res.style.color = data.status === "success" ? "#2e7d32" : "#c62828";
-                res.style.border = data.status === "success" ? "1px solid #2e7d32" : "1px solid #c62828";
-                res.innerHTML = data.message;
-            } catch (e) { 
-                res.style.display = "block";
-                res.style.backgroundColor = "#fff3e0";
-                res.style.color = "#e65100";
-                res.innerHTML = "⚠️ Error de conexión o datos no encontrados.";
+                res.style.display = "block"; res.className = data.status; res.innerHTML = data.message;
+            } catch (e) {
+                res.style.display = "block"; res.className = "error"; res.innerHTML = "⚠️ Error de conexión.";
             } finally {
-                btn.innerText = "VERIFICAR ORIGINALIDAD";
-                btn.disabled = false;
+                btn.disabled = false; btn.innerText = "VERIFICAR ORIGINALIDAD";
             }
         }
     </script>
